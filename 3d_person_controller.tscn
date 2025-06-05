@@ -1,0 +1,73 @@
+[gd_scene load_steps=10 format=3 uid="uid://dbowplg4d4t52"]
+
+[ext_resource type="Script" uid="uid://b8pssplxf4ftu" path="res://player.gd" id="1_xyvpw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_viggd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3qyym"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_xyvpw"]
+material = SubResource("StandardMaterial3D_3qyym")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3qyym"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_viggd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xyvpw"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_viggd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_67c3t"]
+albedo_color = Color(0.97789, 0.948265, 0.948763, 1)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.999991, -0.00359059, 0.00224831, -0.00417382, -0.744125, 0.668027, -0.000725603, -0.66803, -0.744134, -0.157825, 12.9937, -11.7854)
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 1.162
+shadow_enabled = true
+
+[node name="Floor" type="StaticBody3D" parent="."]
+transform = Transform3D(0.999999, 0.00052835, -0.00165584, -0.000525135, 0.999998, 0.00195821, 0.00165687, -0.00195735, 0.999997, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(60, -0.0108195, 0.0404969, 0.0108382, 60, -0.0277373, -0.0404919, 0.0277446, 60, 0, -29, 0)
+shape = SubResource("BoxShape3D_viggd")
+debug_fill = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(59.9997, 0.000547491, 0.200386, -0.0156999, 1.99999, -0.216321, -0.200444, 0.0072089, 59.9993, -0.0085463, 0.0948284, 0.0310794)
+mesh = SubResource("BoxMesh_xyvpw")
+
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.32623, 0)
+script = ExtResource("1_xyvpw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+transform = Transform3D(0.999797, 0.00011824, 0.00139812, -0.000114612, 0.999794, -0.0025939, -0.00139842, 0.00259374, 0.999793, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_3qyym")
+
+[node name="BodyMesh" type="MeshInstance3D" parent="Player"]
+mesh = SubResource("CapsuleMesh_viggd")
+surface_material_override/0 = SubResource("StandardMaterial3D_xyvpw")
+
+[node name="Eye1" type="MeshInstance3D" parent="Player/BodyMesh"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.195, 0.381, -0.5)
+mesh = SubResource("SphereMesh_viggd")
+surface_material_override/0 = SubResource("StandardMaterial3D_67c3t")
+
+[node name="Eye2" type="MeshInstance3D" parent="Player/BodyMesh"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0.197985, 0.384667, -0.499801)
+mesh = SubResource("SphereMesh_viggd")
+
+[node name="CamOrigin" type="Node3D" parent="Player"]
+transform = Transform3D(1, 0.000231313, 0.000417824, -0.000230472, 0.999998, -0.00202133, -0.000418288, 0.00202124, 0.999998, 0, 0.495814, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="Player/CamOrigin"]
+spring_length = 2.0
+margin = 0.5
+
+[node name="Camera3D" type="Camera3D" parent="Player/CamOrigin/SpringArm3D"]
+transform = Transform3D(1, 4.36711e-09, -2.35741e-09, -2.26237e-11, 1, -4.65661e-10, 0, -4.65661e-10, 1, -0.00247989, 0.0119834, 2.92863)
