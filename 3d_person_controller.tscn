@@ -66,6 +66,7 @@ mesh = SubResource("SphereMesh_viggd")
 transform = Transform3D(1, 0.000231313, 0.000417824, -0.000230472, 0.999998, -0.00202133, -0.000418288, 0.00202124, 0.999998, 0, 0.495814, 0)
 
 [node name="SpringArm3D" type="SpringArm3D" parent="Player/CamOrigin"]
+transform = Transform3D(1, -1.40972e-11, 0, -5.91172e-12, 1, -2.32831e-10, 0, 0, 1, 0, 0, 0)
 spring_length = 2.0
 margin = 0.5
 
